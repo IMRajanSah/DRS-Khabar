@@ -1,37 +1,74 @@
-body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      height: 100vh;
-      background-color: #f4f4f4;
-      text-align: center;
-      padding: 20px;
-    }
+body{
+  background-color: #e8e8e8;
+}
+.nav-link:hover {
+  background-color: red;
+}
+.nav-link{
+  font-weight: bolder;
+  color: white;
+}
+.nav-link.active,
+.nav-link:focus {
+  background-color: red !important; /* override Bootstrap */
+  color: white !important;          /* keep text white */
+}
 
-    img {
-      max-width: 100%;
-      height: auto;
-    }
+.article-detail {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px white;
+  background-color: white;
+}
 
-    h1 {
-      font-size: 2em;
-      margin: 20px 0 10px;
-      color: #333;
-    }
+.article-detail img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
 
-    p {
-      font-size: 1.2em;
-      color: #555;
-    }
+.article-detail .content {
+  line-height: 1.6;
+}
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.5em;
-      }
-      p {
-        font-size: 1em;
-      }
-    }
+.article-detail footer {
+  margin-top: 20px;
+  font-style: italic;
+}
+.not-found {
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #fafafa;
+}
+.related-post{
+  width: 25%;
+}
+.cardItem {
+  width: 225px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 4px;
+  padding: 4px;
+  font-family: sans-serif;
+  background-color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .article-detail-container{
+    flex-direction: column;
+  }
+  .related-post {
+    width: 100%; /* full width on mobile */
+    margin-top: 20px; /* optional spacing */
+  }
+  .cardItem{
+    width: 100%;
+  }
+}

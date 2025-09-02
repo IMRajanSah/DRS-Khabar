@@ -1,0 +1,78 @@
+import { useParams } from 'react-router-dom';
+import data from "../data/data.json";
+import '../App.css'
+import RelatedPosts from './RelatedPosts';
+import { useEffect } from 'react';
+
+const Details = () => {
+    const { id } = useParams<{ id: string }>();
+    const article = data.news.find(item => item.id === id);
+
+    if (!article) return <h4 className='not-found'>Article Not Found !</h4>;
+    console.log(article);
+
+    const articles = data.news.filter(
+  (item) => item.id !== id && item.category === article.category
+);
+    useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+  return (
+    // <div className="article-detail">
+    //   <h1>{article.title}</h1>
+    //   <p><strong>Published on:</strong> {article.date} | <strong>Category:</strong> {article.category}</p>
+    //   <img src='/news.jpg' alt={article.title} />
+    //   <div className="content">
+    //     {article.description.map((para, index) => (
+    //       <p key={index}>{para}</p>
+    //     ))}
+    //   </div>
+    //   <footer>
+    //     <p>Written by: {article.author}</p>
+    //   </footer>
+    // </div>
+
+    <div
+      className="article-detail-container"
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '20px',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '5px',
+        flexWrap: 'wrap',
+      }}
+    >
+      {/* Main Article */}
+      <div style={{ flex: 3, backgroundColor:'white',padding:'12px' }}>
+        <h1>{article.title}</h1>
+        <p>
+          <strong>Published on:</strong> {article.date} | <strong>Category:</strong> {article.category}
+        </p>
+        <img
+      src={'/images/'+article.id+'.jpg'}
+          alt={article.title}
+          style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '20px' }}
+        />
+        <div className="content">
+          {article.description.map((para, index) => (
+            <p key={index}>{para}</p>
+          ))}
+        </div>
+        <footer style={{ marginTop: '20px', fontStyle: 'italic' }}>
+          Written by: {article.author}
+        </footer>
+      </div>
+
+      {/* Related Posts on Right */}
+      {(!articles || articles.length===0)?null:
+      <div className='related-post'>
+        <RelatedPosts category={article.category} id={article.id}/>
+      </div>
+        }
+    </div>
+  )
+}
+
+export default Details
