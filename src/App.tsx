@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
 import { Container, Navbar, Nav, Row, Col } from "react-bootstrap";
 import data from "./data/data.json";
 // Import your category components
@@ -9,12 +9,26 @@ import './App.css'
 import Details from './pages/Details';
 import { useEffect, useState } from 'react';
 import NepaliDate  from "nepali-datetime";
+import Login from './component/Admin/Login';
+import CreateArticle from './component/Admin/CreateArticle';
+import ArticleTable from './component/Admin/ArticleTable';
 
 export default function App() {
   return (
     <Router>
-      <Header />
-      <Container style={{ marginTop: '5rem', marginBottom: '8px' }}>
+      <Layout />
+    </Router>
+  );
+}
+
+function Layout() {
+  const location = useLocation();
+  const hideLayout = location.pathname.startsWith("/admin");
+
+  return (
+    <>
+      {!hideLayout && <Header />}
+      <Container style={{ marginTop: hideLayout ? "0" : "5rem", marginBottom: "8px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<Home />} />
@@ -25,13 +39,15 @@ export default function App() {
           <Route path="/international" element={<Subcategory type="international" />} />
           <Route path="/entertainment" element={<Subcategory type="entertainment" />} />
           <Route path="/news/:id" element={<Details />} />
+          <Route path="/admin" element={<Login />} />
+          <Route path="admin/create-article" element={<CreateArticle />} />
+          <Route path="/admin/my-articles" element={<ArticleTable />} />
         </Routes>
       </Container>
-      <Footer />
-    </Router>
+      {!hideLayout && <Footer />}
+    </>
   );
 }
-
 // ---------- Header ----------
 // function Header() {
 //   return (
@@ -225,13 +241,18 @@ function Footer() {
       <div style={{ backgroundColor: "#cd060d", color: "white", padding: "10px 0" }}>
         <Container>
           <Row>
-            
-            <Col className="d-flex justify-content-start gap-4">
-              <Link to="/" style={{ color: "white", textDecoration: "none", cursor: "pointer" }}>Home</Link>
-            </Col>
-            <Col className="d-flex justify-content-end gap-4" style={{ whiteSpace: "nowrap" }}>
+            <Col className="d-flex justify-content-start gap-4" style={{ whiteSpace: "nowrap" }}>
               &copy; {new Date().getFullYear()} DRS Khabar. All Rights Reserved.
             </Col>
+            <Col className="d-flex justify-content-end gap-4">
+              <div style={{ color: "red", cursor: "pointer"}} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="white">
+  <path d="M12 4l-8 8h5v8h6v-8h5z"/>
+</svg>
+
+              </div>
+            </Col>
+            
           </Row>
         </Container>
       </div>
