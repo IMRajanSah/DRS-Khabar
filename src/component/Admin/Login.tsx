@@ -31,7 +31,7 @@ const Login = () => {
             .then((data) => {
                 if (data.token) {
                     localStorage.setItem("token", data.token);
-                    navigate("/admin/create-article");
+                    navigate("/admin/my-articles");
                     //   alert("Login successful!");
                 } else {
                     setError(data.error || "Invalid credentials");
@@ -45,7 +45,7 @@ const Login = () => {
             if (!user) {
                 navigate("/admin"); // redirect to login
             } else {
-                navigate("/admin/create-article");
+                navigate("/admin/my-articles");
             }
             setLoading(false);
         }

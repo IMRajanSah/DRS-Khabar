@@ -11,7 +11,8 @@ import { useEffect, useState } from 'react';
 import NepaliDate  from "nepali-datetime";
 import Login from './component/Admin/Login';
 import CreateArticle from './component/Admin/CreateArticle';
-import ArticleTable from './component/Admin/ArticleTable';
+import ArticleTable from './component/Admin/MyArticles';
+import EditArticle from './component/Admin/EditArticle';
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ function Layout() {
           <Route path="/admin" element={<Login />} />
           <Route path="admin/create-article" element={<CreateArticle />} />
           <Route path="/admin/my-articles" element={<ArticleTable />} />
+          <Route path="/admin/edit-article/:id" element={<EditArticle />} />
         </Routes>
       </Container>
       {!hideLayout && <Footer />}
