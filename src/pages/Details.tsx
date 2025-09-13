@@ -17,24 +17,12 @@ const Details = () => {
     const articles = posts.filter(
   (item:any) => item.id !== id && item.category === article.category
 );
-  
+    
     useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
   return (
-    // <div className="article-detail">
-    //   <h1>{article.title}</h1>
-    //   <p><strong>Published on:</strong> {article.date} | <strong>Category:</strong> {article.category}</p>
-    //   <img src='/news.jpg' alt={article.title} />
-    //   <div className="content">
-    //     {article.description.map((para, index) => (
-    //       <p key={index}>{para}</p>
-    //     ))}
-    //   </div>
-    //   <footer>
-    //     <p>Written by: {article.author}</p>
-    //   </footer>
-    // </div>
+  
 
     <div
       className="article-detail-container"
@@ -54,16 +42,31 @@ const Details = () => {
         <p>
           <strong>प्रकाशित मिति:</strong> {article.post_date} | <strong>वर्ग :</strong> {article.category}
         </p>
+        {article?.image_urls?.length>0?
         <img
-      src={article.image_urls[0]}
+      src={article?.image_urls[0]}
           alt={article.title}
           style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '20px' }}
-        />
+        />:undefined}
+        {article?.video_url.length>1 ?
+        <div className="video-wrapper">
+          { (article.video_url.includes("youtube.com") || article.video_url.includes("youtu.be"))?
+      <iframe
+  width="100%"
+  height="350"
+  src={article.video_url}
+  title="YouTube video player"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowFullScreen
+/>
+      :
+      <video width="100%" height="350" controls>
+      <source src={article.video_url} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+      }
+    </div>:undefined}
         <div className="content">
-          {/* {article.description.map((para, index) => ( */}
-            {/* <p key={index}>{para}</p> */}
-          {/* ))} */}
-            <p>{article.content}</p>
             {article.content
         .split("\n") // split on line breaks
         .filter((para:any) => para.trim() !== "") // remove empty lines
@@ -73,9 +76,7 @@ const Details = () => {
           </p>
         ))}
         </div>
-        {/* <footer style={{ marginTop: '20px', fontStyle: 'italic' }}>
-          Written by: {article.author}
-        </footer> */}
+        
       </div>
 
       {/* Related Posts on Right */}
