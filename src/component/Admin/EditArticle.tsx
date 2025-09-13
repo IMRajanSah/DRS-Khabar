@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { verifyToken } from "../../utils/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import {
     Spinner,
@@ -8,11 +7,14 @@ import {
     Button,
     Row,
     Col,
-    ListGroup
+    ListGroup,
+    Modal
 } from "react-bootstrap";
 
 const EditArticle = () => {
     const [loading, setLoading] = useState(true);
+    const [show, setShow] = useState(false);
+    const [createdPostId, setCreatedPostId] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
 
@@ -35,7 +37,10 @@ const EditArticle = () => {
         postdate: "",
         breakingNews: false,
     });
-
+    const handleClose = () => {
+        setShow(false)
+        navigate("/admin/my-articles")
+    };
     const handleChange = (e: any) => {
         const { name, value, type, checked } = e.target;
         setFormData({
@@ -79,6 +84,8 @@ const EditArticle = () => {
                     postdate: data.post_date,
                     breakingNews: data.breaking_news === 1 ? true : false,
                 });
+                setCreatedPostId(data.id)
+
 
 
                 // alert("Article found");
@@ -106,8 +113,8 @@ const EditArticle = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
-                navigate("/admin/my-articles");
+                setShow(true);
+                // navigate("/admin/my-articles");
             })
             .catch((err) => {
                 console.error(err);
@@ -144,7 +151,15 @@ const EditArticle = () => {
 
     return (
         <Container style={{ marginTop: "2rem", backgroundColor: "white", padding: "2rem", borderRadius: "8px", boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}>
-            <h2 className="mb-4">Edit News Article</h2>
+            {/* <h2 className="mb-4"></h2> */}
+            <Row className="mb-3">
+        <Col><h2>Edit News Article</h2></Col>
+        <Col className="text-end">
+          <Button variant="info" onClick={() => navigate("/admin/my-articles")}>
+            Go Back
+          </Button>
+        </Col>
+      </Row>
             <Form onSubmit={handleSubmit}>
                 {/* Title */}
                 <Form.Group className="mb-3">
@@ -213,6 +228,17 @@ const EditArticle = () => {
 
                 <Button variant="primary" type="submit" className="mt-4">Update Article</Button>
             </Form>
+        <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Saved Successfully!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><p>Click on See Post button to view the post.</p></Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary">
+            <a href={"/news/"+createdPostId} style={{color: "white", textDecoration: "none"}} target="_blank" rel="noreferrer">See Post</a>
+          </Button>
+        </Modal.Footer>
+      </Modal>
         </Container>
     );
 };

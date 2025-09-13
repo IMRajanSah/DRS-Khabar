@@ -8,14 +8,22 @@ import {
   Button,
   Row,
   Col,
-  ListGroup
+  ListGroup,
+  Modal
 } from "react-bootstrap";
 const CreateArticle = () => {
     const [loading, setLoading] = useState(true);
     const [authorized, setAuthorized] = useState(false);
     const navigate = useNavigate();
     const [currentImage, setCurrentImage] = useState("");
+    const [show, setShow] = useState(false);
+    const [createdPostId, setCreatedPostId] = useState(false);
 
+  const handleClose = () => {
+    setShow(false)
+    navigate("/admin/my-articles")
+  };
+  const handleShow = () => setShow(true);
    const [formData, setFormData] = useState<{
   title: string;
   content: string;
@@ -76,7 +84,8 @@ const CreateArticle = () => {
   // ✅ Submit form
   const handleSubmit = (e:any) => {
     e.preventDefault();
-    console.log("Submitting form:", formData);
+    // console.log("Submitting form:", formData);
+    
 
     // TODO: send POST request to PHP API
     fetch("https://api.drskhabar.com/index.php?action=createPost", {
@@ -88,7 +97,12 @@ const CreateArticle = () => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((data) => {console.log(data);navigate("/admin/my-articles")})
+      .then((data) => {
+        console.log(data);
+        setCreatedPostId(data.postId)
+        handleShow();
+        // navigate("/admin/my-articles")
+      })
       .catch((err) => {console.error(err);navigate("/admin");});
   };
 
@@ -119,7 +133,20 @@ const CreateArticle = () => {
     if (!authorized) navigate("/admin");
     return (
         <Container style={{marginTop: "2rem", backgroundColor: "white", padding: "2rem", borderRadius: "8px", boxShadow: "0 0 10px rgba(0,0,0,0.1)"}}>
-      <h2 className="mb-4">Create News Article</h2>
+      {/* <h2 className="mb-4">Create News Article</h2>
+      <Col className="text-end">
+          <Button variant="success" onClick={() => navigate("/admin/create-article")}>
+            + Create Post
+          </Button>
+        </Col> */}
+        <Row className="mb-3">
+        <Col><h2>Create News Article</h2></Col>
+        <Col className="text-end">
+          <Button variant="info" onClick={() => navigate("/admin/my-articles")}>
+            Go Back
+          </Button>
+        </Col>
+      </Row>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Title</Form.Label>
@@ -237,8 +264,20 @@ const CreateArticle = () => {
           Submit Article
         </Button>
       </Form>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Saved Successfully!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><p>Click on See Post button to view the post.</p></Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary">
+            <a href={"/news/"+createdPostId} style={{color: "white", textDecoration: "none"}} target="_blank" rel="noreferrer">See Post</a>
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
     )
 }
+
 
 export default CreateArticle
