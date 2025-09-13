@@ -113,6 +113,7 @@ const EditArticle = () => {
         })
             .then((res) => res.json())
             .then((data) => {
+                console.log(data);
                 setShow(true);
                 // navigate("/admin/my-articles");
             })
