@@ -206,12 +206,12 @@ const EditArticle = () => {
                     <Form.Label>Category</Form.Label>
                     <Form.Select name="category" value={formData.category} onChange={handleChange} required>
                         <option value="">Select category</option>
-                        <option value="news">News</option>
-                        <option value="politics">Politics</option>
-                        <option value="sports">Sports</option>
-                        <option value="economy">Economy</option>
-                        <option value="international">International</option>
-                        <option value="entertainment">Entertainment</option>
+            <option value="समाचार">समाचार</option>
+            <option value="राजनीति">राजनीति</option>
+            <option value="खेलकुद">खेलकुद</option>
+            <option value="अर्थतन्त्र">अर्थतन्त्र</option>
+            <option value="अन्तर्राष्ट्रिय">अन्तर्राष्ट्रिय</option>
+            <option value="मनोरञ्जन">मनोरञ्जन</option>
                     </Form.Select>
                 </Form.Group>
 

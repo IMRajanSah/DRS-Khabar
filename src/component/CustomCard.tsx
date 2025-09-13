@@ -1,22 +1,14 @@
 import { Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
-interface NewsItem {
-  id: string;
-  title: string;
-  description: string[];
-  category: string;
-  image: string;
-  date: string;
-  author: string;
-}
-const CustomCard = ({item}:{item:NewsItem}) => {
+
+const CustomCard = ({item}:{item:any}) => {
   const navigate = useNavigate();
   return (
     <Card style={{ width: '100%', height: '38rem', overflow: 'hidden',marginBottom:'8px',cursor:'pointer' }} onClick={()=>navigate(`/news/${item.id}`)}>
   <div style={{ height: '80%', overflow: 'hidden',display: 'flex',justifyContent:'center',alignItems:'center',padding:'1rem'}}> 
     <Card.Img
       variant="top"
-      src={'/images/'+item.id+'.jpg'}
+      src={item.image_urls[0]}
       style={{
         width: '100%',
         height: '100%',

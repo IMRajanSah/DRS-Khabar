@@ -20,3 +20,15 @@ export async function verifyToken() {
     return false;
   }
 }
+
+
+export const Category: Record<string, string> = {
+  news: "समाचार",
+  politics: "राजनीति",
+  sports: "खेलकुद",
+  economy: "अर्थतन्त्र",
+  international: "अन्तर्राष्ट्रिय",
+  entertainment: "मनोरञ्जन",
+};
+
+

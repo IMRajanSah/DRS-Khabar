@@ -1,19 +1,23 @@
 import { useParams } from 'react-router-dom';
-import data from "../data/data.json";
+// import data from "../data/data.json";
 import '../App.css'
 import RelatedPosts from './RelatedPosts';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { AppContext } from '../context/AppContext';
 
 const Details = () => {
+  const context = useContext(AppContext);
+  const {posts} = context!;
     const { id } = useParams<{ id: string }>();
-    const article = data.news.find(item => item.id === id);
+    const article = posts.find((item:any) => item.id === id);
 
     if (!article) return <h4 className='not-found'>Article Not Found !</h4>;
-    console.log(article);
+    // console.log(article);
 
-    const articles = data.news.filter(
-  (item) => item.id !== id && item.category === article.category
+    const articles = posts.filter(
+  (item:any) => item.id !== id && item.category === article.category
 );
+  
     useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
@@ -48,21 +52,30 @@ const Details = () => {
       <div style={{ flex: 3, backgroundColor:'white',padding:'12px' }}>
         <h1>{article.title}</h1>
         <p>
-          <strong>Published on:</strong> {article.date} | <strong>Category:</strong> {article.category}
+          <strong>प्रकाशित मिति:</strong> {article.post_date} | <strong>वर्ग :</strong> {article.category}
         </p>
         <img
-      src={'/images/'+article.id+'.jpg'}
+      src={article.image_urls[0]}
           alt={article.title}
           style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '20px' }}
         />
         <div className="content">
-          {article.description.map((para, index) => (
-            <p key={index}>{para}</p>
-          ))}
+          {/* {article.description.map((para, index) => ( */}
+            {/* <p key={index}>{para}</p> */}
+          {/* ))} */}
+            <p>{article.content}</p>
+            {article.content
+        .split("\n") // split on line breaks
+        .filter((para:any) => para.trim() !== "") // remove empty lines
+        .map((para:any, index:any) => (
+          <p key={index} style={{ marginBottom: "1em" }}>
+            {para}
+          </p>
+        ))}
         </div>
-        <footer style={{ marginTop: '20px', fontStyle: 'italic' }}>
+        {/* <footer style={{ marginTop: '20px', fontStyle: 'italic' }}>
           Written by: {article.author}
-        </footer>
+        </footer> */}
       </div>
 
       {/* Related Posts on Right */}

@@ -1,13 +1,22 @@
+import { useContext } from "react";
 import CustomCard from "../component/CustomCard";
-import data from "../data/data.json";
+import { AppContext } from "../context/AppContext";
+import { Category } from "../utils/auth";
 const Subcategory = ({type}:{type:string}) => {
+  const context = useContext(AppContext);
+  const {posts} = context!;
+  const nepaliCategory = Category[type];
+  console.log(nepaliCategory);
+  
+  const filtered = posts.filter((item) => item.category === nepaliCategory);
   return (
-    // <div>{type}</div>
     <div>
-  {data.news.map(item => 
-    item.category === type ? <CustomCard key={item.id} item={item} /> : null
-  )}
-</div>
+      {filtered.length > 0 ? (
+        filtered.map((item) => <CustomCard key={item.id} item={item} />)
+      ) : (
+        <h4 className="not-found">अहिलेसम्म कुनै पोस्ट छैन !</h4>
+      )}
+    </div>
   )
 }
 

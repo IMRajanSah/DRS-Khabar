@@ -1,11 +1,15 @@
-import data from "../data/data.json";
+// import data from "../data/data.json";
 import { useNavigate } from 'react-router-dom';
 import '../App.css'
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 const RelatedPosts = (props:any) => {
+  const context = useContext(AppContext);
+    const {posts} = context!;
   const navigate = useNavigate();
     const {category,id}=props
-    const articles = data.news.filter(
+    const articles = posts.filter(
   (item) => item.id !== id && item.category === category
 );
     if (!articles || articles.length===0) {
@@ -31,7 +35,7 @@ console.log(articles);
     {articles.slice(0, 3).map((item)=>(
         <div className='cardItem' key={item.id} onClick={()=>navigate(`/news/${item.id}`)}>
       <img
-        src={'/images/'+item.id+'.jpg'}
+        src={item.image_urls[0]}
         alt="News"
         style={styles.image}
       />

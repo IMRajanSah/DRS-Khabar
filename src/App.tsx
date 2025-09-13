@@ -7,14 +7,40 @@ import Home from "./pages/Home";
 import Subcategory from "./pages/Subcategory";
 import './App.css'
 import Details from './pages/Details';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import NepaliDate  from "nepali-datetime";
 import Login from './component/Admin/Login';
 import CreateArticle from './component/Admin/CreateArticle';
 import ArticleTable from './component/Admin/MyArticles';
 import EditArticle from './component/Admin/EditArticle';
-
+import { AppContext } from './context/AppContext';
+import {
+  Spinner,
+  
+} from "react-bootstrap";
 export default function App() {
+  const context = useContext(AppContext);
+  const {loading, error} = context!;
+  if(loading){
+    return(
+    <Container
+                className="d-flex justify-content-center align-items-center"
+                style={{ height: "80vh" }}
+            >
+                <Spinner animation="border" role="status" variant="primary">
+                    <span className="visually-hidden">Checking authentication...</span>
+                </Spinner>
+            </Container>
+  )}
+  if(error){
+    return(
+    <Container
+                className="d-flex justify-content-center align-items-center"
+                style={{ height: "80vh", color:'red' }}
+            >
+        <h4 className="not-found">API Failure!</h4>
+            </Container>
+  )}
   return (
     <Router>
       <Layout />

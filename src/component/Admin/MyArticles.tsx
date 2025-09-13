@@ -242,7 +242,7 @@ const MyArticles = () => {
             ))
           ) : (
             <tr>
-              <td colSpan={7} className="text-center">No posts found</td>
+              <td colSpan={7} className="text-center">अहिलेसम्म कुनै पोस्ट छैन !</td>
             </tr>
           )}
         </tbody>

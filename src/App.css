@@ -48,7 +48,7 @@ body{
   width: 25%;
 }
 .cardItem {
-  width: 225px;
+  /* width: 225px; */
   border: 1px solid #ddd;
   border-radius: 5px;
   overflow: hidden;
