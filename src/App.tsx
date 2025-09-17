@@ -41,10 +41,33 @@ export default function App() {
         <h4 className="not-found">API Failure!</h4>
             </Container>
   )}
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // smooth scroll
+    });
+  };
+
   return (
+    <>
     <Router>
       <Layout />
     </Router>
+    <div
+      className="scroll-to-top-btn"
+      onClick={scrollToTop}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="white"
+      >
+        <path d="M12 4l-8 8h5v8h6v-8h5z" />
+      </svg>
+    </div>
+    </>
   );
 }
 
@@ -118,6 +141,28 @@ function Header() {
     const formatted = `${toNepaliDigits(bsDate.replace(/-/g, "/"))} ${toNepaliDigits(hours.toString().padStart(2,"0"))}:${toNepaliDigits(minutes.toString().padStart(2,"0"))}:${toNepaliDigits(seconds.toString().padStart(2,"0"))} ${ampm}`;
     return formatted;
   };
+  const [showNavbar, setShowNavbar] = useState(true);
+
+  // NEW: track last scroll position
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        // scrolling down → hide navbar
+        setShowNavbar(false);
+      } else {
+        // scrolling up → show navbar
+        setShowNavbar(true);
+      }
+      setLastScrollY(window.scrollY); // update last scroll position
+    };
+
+    // NEW: add scroll listener
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll); // cleanup
+  }, [lastScrollY]);
   useEffect(() => {
     const interval = setInterval(() => {
       setDateTime(formatBsDateTime());
@@ -127,39 +172,6 @@ function Header() {
   }, []);
   return (
     <>
-      {/* <div
-  style={{
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "4rem",
-    zIndex: 1035,
-    display: "flex",
-    justifyContent: "space-between", // space between logo and right content
-    alignItems: "flex-end",
-    backgroundColor: "white",
-    padding: "0 3.75rem", // horizontal padding
-    overflow: "hidden",
-  }}
->
-  <img
-    src="/drs.png"
-    alt="Top Banner"
-    style={{
-      height: "100%",
-      width: "auto",
-      objectFit: "cover",
-      objectPosition: "center",
-      cursor: "pointer",
-    }}
-    onClick={() => navigate("/")}
-  />
-
-  <div >Hello</div>
-</div> */}
-
-
       <Navbar
         variant="dark"
         expand="lg"
@@ -173,6 +185,7 @@ function Header() {
           color: "white",
           zIndex: 700
         }}
+        className={`custom-navbar ${showNavbar ? "show" : "hide"}`}
       >
         <Container className="mx-5" style={{ color: "white" }}>
           <Navbar.Brand as={Link} to="/" >
@@ -194,7 +207,7 @@ function Header() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto" style={{ gap: "1rem" }}>
               {data.categories.map((cat) => (
-                <Nav.Link as={Link} to={`/${cat.id}`} key={cat.id} onClick={() => setExpanded(false)}>
+                <Nav.Link as={Link} to={`/${cat.id}`} key={cat.id} onClick={() => setExpanded(false)} style={{fontSize:'1.25rem'}}>
                   {cat.name}
                 </Nav.Link>
               ))}
@@ -266,21 +279,12 @@ function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div style={{ backgroundColor: "#cd060d", color: "white", padding: "10px 0" }}>
+      <div style={{ backgroundColor: "#cd060d", color: "white", padding: "2px 0", fontSize: "0.75rem" }}>
         <Container>
           <Row>
-            <Col className="d-flex justify-content-start gap-4" style={{ whiteSpace: "nowrap" }}>
+            <Col className="d-flex justify-content-end gap-4" style={{ whiteSpace: "nowrap" }}>
               &copy; {new Date().getFullYear()} DRS Khabar. All Rights Reserved.
             </Col>
-            <Col className="d-flex justify-content-end gap-4">
-              <div style={{ color: "red", cursor: "pointer"}} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="white">
-  <path d="M12 4l-8 8h5v8h6v-8h5z"/>
-</svg>
-
-              </div>
-            </Col>
-            
           </Row>
         </Container>
       </div>

@@ -5,8 +5,9 @@ body{
   background-color: red;
 }
 .nav-link{
-  font-weight: bolder;
+  font-weight: bold;
   color: white;
+  height: 100%;
 }
 .nav-link.active,
 .nav-link:focus {
@@ -49,8 +50,8 @@ body{
 }
 .cardItem {
   /* width: 225px; */
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  /* border: 1px solid #ddd; */
+  /* border-radius: 5px; */
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 4px;
@@ -59,6 +60,39 @@ body{
   background-color: white;
   cursor: pointer;
 }
+/* NEW: animate navbar hide/show */
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #2d2767;
+  color: white;
+  z-index: 700;
+  transition: transform 0.3s ease-in-out; /* smooth animation */
+}
+
+.custom-navbar.hide {
+  transform: translateY(-100%); /* slide up (hide) */
+}
+
+.custom-navbar.show {
+  transform: translateY(0); /* slide down (show) */
+}
+.scroll-to-top-btn {
+  position: fixed;       /* stays in place */
+  bottom: 2rem;          /* 2rem above bottom */
+  right: 2rem;           /* 2rem from right */
+  background: #2d2767;   /* match navbar color */
+  border-radius: 50%;    /* round button */
+  padding: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 9999;         /* above all content */
+}
+
 
 @media (max-width: 768px) {
   .article-detail-container{

@@ -5,6 +5,7 @@ import RelatedPosts from './RelatedPosts';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 import { Row, Col } from "react-bootstrap";
+import Ratio from "react-bootstrap/Ratio";
 
 const Details = () => {
   const context = useContext(AppContext);
@@ -81,19 +82,22 @@ const Details = () => {
         {article?.video_url.length>1 ?
         <div className="video-wrapper">
           { (article.video_url.includes("youtube.com") || article.video_url.includes("youtu.be"))?
+               <Ratio aspectRatio="16x9">
       <iframe
   width="100%"
-  height="350"
+  height="auto"
   src={article.video_url}
   title="YouTube video player"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
   allowFullScreen
 />
+</Ratio>
       :
-      <video width="100%" height="350" controls>
+      <video width="100%" height="auto" controls>
       <source src={article.video_url} type="video/mp4" />
       Your browser does not support the video tag.
     </video>
+    
       }
     </div>:undefined}
         <div className="content">
