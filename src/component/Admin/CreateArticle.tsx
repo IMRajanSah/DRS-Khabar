@@ -85,7 +85,10 @@ const CreateArticle = () => {
   const handleSubmit = (e:any) => {
     e.preventDefault();
     // console.log("Submitting form:", formData);
-    
+    if(formData.image_urls.length===0){
+      alert("Please add at least one image URL.");
+      return;
+    }
 
     // TODO: send POST request to PHP API
     fetch("https://api.drskhabar.com/index.php?action=createPost", {

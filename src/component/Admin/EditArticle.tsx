@@ -102,6 +102,10 @@ const EditArticle = () => {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         console.log("Submitting form:", formData);
+        if(formData.image_urls.length===0){
+      alert("Please add at least one image URL.");
+      return;
+    }
 
         fetch(`https://api.drskhabar.com/index.php?action=updatePost&id=${id}`, {
             method: "POST", // or PUT if your API supports it

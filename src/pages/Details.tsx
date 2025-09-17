@@ -4,6 +4,7 @@ import '../App.css'
 import RelatedPosts from './RelatedPosts';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
+import { Row, Col } from "react-bootstrap";
 
 const Details = () => {
   const context = useContext(AppContext);
@@ -42,12 +43,41 @@ const Details = () => {
         <p>
           <strong>प्रकाशित मिति:</strong> {article.post_date} | <strong>वर्ग :</strong> {article.category}
         </p>
-        {article?.image_urls?.length>0?
+        {/* {article?.video_url.length===0 && article?.image_urls?.length>0?
         <img
       src={article?.image_urls[0]}
           alt={article.title}
           style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '20px' }}
-        />:undefined}
+        />:undefined
+        } */}
+        {article?.video_url.length === 0 && article?.image_urls?.length > 0 ? (
+  <Row className="g-3 mb-3">
+    {article.image_urls.map((url:any, index:any) => (
+      <Col
+        key={index}
+        xs={12}
+        sm={article.image_urls.length === 1 ? 12 : 6} // full width if only one image
+      >
+        <img
+          src={url}
+          alt={`${article.title}-${index}`}
+          style={{
+            width: "100%",
+            height: "auto",
+            borderRadius: "8px",
+            objectFit: "cover",
+          }}
+        />
+      </Col>
+    ))}
+  </Row>
+) : null}
+        {/* {article?.image_urls?.length>0?
+        <img
+      src={article?.image_urls[0]}
+          alt={article.title}
+          style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '20px' }}
+        />:undefined} */}
         {article?.video_url.length>1 ?
         <div className="video-wrapper">
           { (article.video_url.includes("youtube.com") || article.video_url.includes("youtu.be"))?
@@ -76,6 +106,29 @@ const Details = () => {
           </p>
         ))}
         </div>
+        {article?.video_url.length>0 && article?.image_urls?.length>0?
+        <Row className="g-3 mb-3">
+    {article.image_urls.map((url:any, index:any) => (
+      <Col
+        key={index}
+        xs={12}
+        sm={article.image_urls.length === 1 ? 12 : 6} // full width if only one image
+      >
+        <img
+          src={url}
+          alt={`${article.title}-${index}`}
+          style={{
+            width: "100%",
+            height: "auto",
+            borderRadius: "8px",
+            objectFit: "cover",
+          }}
+        />
+      </Col>
+    ))}
+  </Row>
+ : null}
+        
         
       </div>
 
