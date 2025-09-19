@@ -31,7 +31,7 @@ console.log(articles);
 
   return (
     <div style={{backgroundColor:'white', padding:'8px', boxShadow: '0 0 10px rgba(0,0,0,0.1)'}}>
-    <div style={{borderBottom:'2px solid red',color:'black', padding:'4px', fontWeight:'bold'}}>Related Post</div>
+    <div style={{backgroundColor:'red',color:'white', padding:'4px', fontWeight:'bold'}}>Related Post</div>
     {articles.slice(0, 3).map((item)=>(
         <div className='cardItem' key={item.id} onClick={()=>navigate(`/news/${item.id}`)}>
       <img

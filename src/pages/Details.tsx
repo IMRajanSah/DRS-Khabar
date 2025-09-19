@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 // import data from "../data/data.json";
 import '../App.css'
 import RelatedPosts from './RelatedPosts';
@@ -6,10 +6,15 @@ import { useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 import { Row, Col } from "react-bootstrap";
 import Ratio from "react-bootstrap/Ratio";
+import { Helmet } from "react-helmet-async";
 
 const Details = () => {
   const context = useContext(AppContext);
   const {posts} = context!;
+  const location = useLocation();
+
+  const currentUrl = `https://drskhabar.com${location.pathname}`;
+
     const { id } = useParams<{ id: string }>();
     const article = posts.find((item:any) => item.id === id);
 
@@ -24,7 +29,15 @@ const Details = () => {
     window.scrollTo(0, 0);
   }, [id]);
   return (
-  
+    <>
+    <Helmet>
+        <title>{article.title}</title>
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={article.title} />
+        {/* <meta property="og:description" content={article.content} /> */}
+        <meta property="og:image" content={article.image_urls[0]}/>
+        <meta property="og:url" content={currentUrl} />
+      </Helmet>
 
     <div
       className="article-detail-container"
@@ -105,7 +118,7 @@ const Details = () => {
         .split("\n") // split on line breaks
         .filter((para:any) => para.trim() !== "") // remove empty lines
         .map((para:any, index:any) => (
-          <p key={index} style={{ marginBottom: "1em" }}>
+          <p key={index} style={{ marginBottom: "1rem", fontSize:"1.25rem", lineHeight:"1.6",fontWeight:"500" }}>
             {para}
           </p>
         ))}
@@ -143,6 +156,8 @@ const Details = () => {
       </div>
         }
     </div>
+    </>
+
   )
 }
 
