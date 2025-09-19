@@ -37,6 +37,9 @@ const Details = () => {
         {/* <meta property="og:description" content={article.content} /> */}
         <meta property="og:image" content={article.image_urls[0]}/>
         <meta property="og:url" content={currentUrl} />
+        <meta property="og:image:width" content="690"/>
+        <meta property="og:image:height" content="373"/>
+        <meta property="og:image:type" content="image/jpeg"/>
       </Helmet>
 
     <div
