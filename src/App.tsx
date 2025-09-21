@@ -78,7 +78,7 @@ function Layout() {
   return (
     <>
       {!hideLayout && <Header />}
-      <Container style={{ marginTop: hideLayout ? "0" : "5rem", marginBottom: "8px" }}>
+      <Container style={{ marginTop: hideLayout ? "0" : "2rem", marginBottom: "8px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<Home />} />
@@ -121,6 +121,7 @@ function Header() {
   // const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
   const [dateTime, setDateTime] = useState("");
+  // const [showBanner, setShowBanner] = useState(true);
    const toNepaliDigits = (input: string) => {
     const nepaliDigits = ["०","१","२","३","४","५","६","७","८","९"];
     return input.replace(/\d/g, (d) => nepaliDigits[parseInt(d)]);
@@ -146,23 +147,28 @@ function Header() {
   // NEW: track last scroll position
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
-        // scrolling down → hide navbar
-        setShowNavbar(false);
-      } else {
-        // scrolling up → show navbar
-        setShowNavbar(true);
-      }
-      setLastScrollY(window.scrollY); // update last scroll position
-    };
+//   useEffect(() => {
+//   const handleScroll = () => {
+//     const currentScrollY = window.scrollY;
 
-    // NEW: add scroll listener
-    window.addEventListener("scroll", handleScroll);
+//     // Banner: show only at top
+//     setShowBanner(currentScrollY === 0);
 
-    return () => window.removeEventListener("scroll", handleScroll); // cleanup
-  }, [lastScrollY]);
+//     // Navbar: hide on scroll down, show on scroll up
+//     if (currentScrollY > lastScrollY) {
+//       // scrolling down
+//       setShowNavbar(false);
+//     } else if (currentScrollY < lastScrollY) {
+//       // scrolling up
+//       setShowNavbar(true);
+//     }
+
+//     setLastScrollY(currentScrollY);
+//   };
+
+//   window.addEventListener("scroll", handleScroll);
+//   return () => window.removeEventListener("scroll", handleScroll);
+// }, [lastScrollY]);
   useEffect(() => {
     const interval = setInterval(() => {
       setDateTime(formatBsDateTime());
@@ -171,25 +177,44 @@ function Header() {
     return () => clearInterval(interval);
   }, []);
   return (
-    <>
+    < div >
+    <div
+        // className={`top-banner ${showBanner ? "show" : "hide"}`} // CHANGED
+        style={{
+          width: "100%",
+          // height: "125px",
+          backgroundImage: 'url("/banner.jpg")', // CHANGED: replace with your banner
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          transition: "transform 0.3s ease-in-out", // CHANGED: smooth slide
+          zIndex: 800,
+          padding: "5px",
+        }}
+        className='ps-md-5'
+      >
+        <img src='/thelogo.png' width="250px" height='100px'></img>
+      </div>
       <Navbar
         variant="dark"
         expand="lg"
         expanded={expanded}
         onToggle={() => setExpanded(!expanded)}
         style={{
-          position: "fixed",
-          top: "0", // starts below the image
+          // position: "fixed",
+          // top: "125px", 
+          // transform: showBanner ? "translateY(125px)" : "translateY(-100%)",
           width: "100%",
           backgroundColor: "#2d2767",
           color: "white",
-          zIndex: 700
+          zIndex: 700,
+          // paddingLeft: '2rem'
         }}
-        className={`custom-navbar ${showNavbar ? "show" : "hide"}`}
+        // className={`custom-navbar ${showNavbar ? "show" : "hide"}`}
+        className='ps-md-4'
       >
         <Container className="mx-5" style={{ color: "white" }}>
           <Navbar.Brand as={Link} to="/" >
-            <img
+            {/* <img
     src="/drs.png"
     alt="Top Banner"
     style={{
@@ -200,7 +225,16 @@ function Header() {
       cursor: "pointer",
       background:"white", borderRadius:"50%"
     }}
-  />
+  /> */}
+  <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="32" 
+            height="32" 
+            viewBox="0 0 24 24" 
+            fill="white"
+          >
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
           </Navbar.Brand>
     
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -216,7 +250,7 @@ function Header() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </>
+    </div>
   );
 }
 
@@ -225,53 +259,52 @@ function Footer() {
   return (
     <footer>
       {/* Main Footer */}
-      <div style={{ backgroundColor: "#2d2767", color: "white", padding: "40px 0" }}>
+      <div style={{ backgroundColor: "#2d2767", color: "white", padding: "32px 0" }}>
         <Container>
           <Row className="text-center text-md-start">
             {/* Logo Section */}
-            <Col xs={12} md={4} className="text-center mb-4 mb-md-0" >
-              <img src="/drs.png" alt="Logo" style={{ width: "150px", height: "auto",background:"white", borderRadius:"50%"}} />
-            </Col>
-
-            {/* About Section */}
-            <Col xs={12} md={4} className="mb-4 mb-md-0">
-              <h5 style={{ borderBottom: "2px solid red", display: "inline-block", paddingBottom: "5px" }}>
-                हाम्रो बारेमा
-              </h5>
-              <p className="mt-3 mb-1">डी.आर.एस मिडिया</p>
-              <p className="mb-1">जनकपुरधाम उपमहानगरपालिका - ४, धनुषा</p>
-              <p className="mb-1">
-                <a href="mailto:nepalheadlinenews@gmail.com" className="text-light text-decoration-none">
-                  nepalheadlinenews@gmail.com
-                </a>
-              </p>
-            </Col>
-            <Col xs={12} md={4}>
-              <h5
-                style={{
-                  borderBottom: "2px solid red",
-                  display: "inline-block",
-                  paddingBottom: "5px",
-                }}
-              >
-                सामाजिक मिडिया
-              </h5>
-
-              <div className="d-flex justify-content-center justify-content-md-start align-items-center gap-3">
+            <Col xs={12} md={4} className="text-center mb-4 mb-md-0  mt-lg-4">
+              <img src="/colored-logo.png" alt="Logo" style={{ width: "250px", height: "100px",background:"transparent", marginBottom:"0.5rem", borderRadius:'2%'}} />
+              <div className="d-flex justify-content-center justify-content-md-center align-items-center gap-3">
                 {/* Facebook Icon */}
                 <a href="https://www.facebook.com/profile.php?id=61574987473882" target="_blank" rel="noreferrer">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white">
                     <path d="M22.675 0h-21.35C.598 0 0 .598 0 1.325v21.351C0 23.403.598 24 1.325 24h11.494v-9.294H9.691v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.794.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.403 24 24 23.403 24 22.675V1.325C24 .598 23.403 0 22.675 0z" />
                   </svg>
                 </a>
 
                 {/* YouTube Icon */}
                 <a href="https://www.youtube.com/@DRSMedia-v3n" target="_blank" rel="noreferrer">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#FF0000">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
                     <path d="M23.498 6.186a2.972 2.972 0 0 0-2.094-2.098C19.751 3.5 12 3.5 12 3.5s-7.751 0-9.404.588a2.972 2.972 0 0 0-2.094 2.098A31.26 31.26 0 0 0 0 12a31.26 31.26 0 0 0 .502 5.814 2.972 2.972 0 0 0 2.094 2.098C4.249 20.5 12 20.5 12 20.5s7.751 0 9.404-.588a2.972 2.972 0 0 0 2.094-2.098A31.26 31.26 0 0 0 24 12a31.26 31.26 0 0 0-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                   </svg>
                 </a>
               </div>
+            </Col>
+
+            {/* About Section */}
+            <Col xs={12} md={8} className="mb-4 mb-md-0">
+              <h5 style={{ borderBottom: "2px solid red", display: "inline-block", paddingBottom: "5px", width:"100%", textAlign:"center" }}>
+                डी.आर.एस खबर डटकम
+              </h5>
+              <Row className="text-center text-md-start">
+              <Col xs={12} md={6} className="mb-3 mb-md-0">
+              <div className=""> <strong>प्रेस काउन्सिल दर्ता नम्बर :</strong> ५८६-०७२-७३ </div>
+              <div className=""> <strong>सूचना विभाग दर्ता नम्बर : </strong> १३३-०७३-०७४ </div>
+              <div className=""> <strong>ठेगाना : </strong> जनकपुरधाम उपमहानगरपालिका - ४, धनुषा </div>
+              <div className="">  <strong>सञ्चालक : </strong> शुभम् मिडिया प्रालि </div>
+              <div className="">  <strong> सम्पादक :</strong> सुरज प्याकुरेल </div>
+              </Col>
+              <Col xs={12} md={6}>
+                <div className=""> <strong> फोन नम्बर :</strong> ५८६-०७२-७३ </div>
+              {/* <div className=""> <strong> पोष्ट बक्स नम्बर :</strong> १३३-०७३-०७४ </div> */}
+              <div className=""> <strong>Email: </strong> 
+              <a href="mailto:nepalheadlinenews@gmail.com" className="text-light text-decoration-none">
+                  nepalheadlinenews@gmail.com
+                </a>
+              </div>
+              </Col>
+              </Row>
             </Col>
 
           </Row>
@@ -279,7 +312,7 @@ function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div style={{ backgroundColor: "#cd060d", color: "white", padding: "2px 0", fontSize: "0.75rem" }}>
+      <div style={{ backgroundColor: "#cd060d", color: "white", padding: "2px 0", fontSize: "0.85rem", height:"2rem", alignItems:"center", display:"flex" }}>
         <Container>
           <Row>
             <Col className="d-flex justify-content-end gap-4" style={{ whiteSpace: "nowrap" }}>

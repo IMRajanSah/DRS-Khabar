@@ -1,4 +1,4 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import data from "../data/data.json";
 import '../App.css'
 import RelatedPosts from './RelatedPosts';
@@ -6,14 +6,11 @@ import { useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 import { Row, Col } from "react-bootstrap";
 import Ratio from "react-bootstrap/Ratio";
-import { Helmet } from "react-helmet-async";
 
 const Details = () => {
   const context = useContext(AppContext);
   const {posts} = context!;
-  const location = useLocation();
 
-  const currentUrl = `https://drskhabar.com${location.pathname}`;
 
     const { id } = useParams<{ id: string }>();
     const article = posts.find((item:any) => item.id === id);
@@ -29,19 +26,6 @@ const Details = () => {
     window.scrollTo(0, 0);
   }, [id]);
   return (
-    <>
-    <Helmet>
-        <title>{article.title}</title>
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={article.title} />
-        {/* <meta property="og:description" content={article.content} /> */}
-        <meta property="og:image" content={article.image_urls[0]}/>
-        <meta property="og:url" content={currentUrl} />
-        <meta property="og:image:width" content="690"/>
-        <meta property="og:image:height" content="373"/>
-        <meta property="og:image:type" content="image/jpeg"/>
-      </Helmet>
-
     <div
       className="article-detail-container"
       style={{
@@ -159,7 +143,7 @@ const Details = () => {
       </div>
         }
     </div>
-    </>
+
 
   )
 }

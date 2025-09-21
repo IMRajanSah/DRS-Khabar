@@ -14,7 +14,17 @@ body{
   background-color: red !important; /* override Bootstrap */
   color: white !important;          /* keep text white */
 }
+.top-banner {
+  transition: transform 0.3s ease-in-out; /* CHANGED */
+}
 
+.top-banner.hide {
+  transform: translateY(-100%); /* CHANGED: hide above viewport */
+}
+
+.top-banner.show {
+  transform: translateY(0); /* CHANGED: show normally */
+}
 .article-detail {
   max-width: 800px;
   margin: 0 auto;
@@ -68,7 +78,7 @@ body{
   background-color: #2d2767;
   color: white;
   z-index: 700;
-  transition: transform 0.3s ease-in-out; /* smooth animation */
+  transition: transform 0.3s ease-in-out;
 }
 
 .custom-navbar.hide {
