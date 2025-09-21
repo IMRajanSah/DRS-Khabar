@@ -142,10 +142,10 @@ function Header() {
     const formatted = `${toNepaliDigits(bsDate.replace(/-/g, "/"))} ${toNepaliDigits(hours.toString().padStart(2,"0"))}:${toNepaliDigits(minutes.toString().padStart(2,"0"))}:${toNepaliDigits(seconds.toString().padStart(2,"0"))} ${ampm}`;
     return formatted;
   };
-  const [showNavbar, setShowNavbar] = useState(true);
+  // const [showNavbar, setShowNavbar] = useState(true);
 
   // NEW: track last scroll position
-  const [lastScrollY, setLastScrollY] = useState(0);
+  // const [lastScrollY, setLastScrollY] = useState(0);
 
 //   useEffect(() => {
 //   const handleScroll = () => {
@@ -289,16 +289,16 @@ function Footer() {
               </h5>
               <Row className="text-center text-md-start">
               <Col xs={12} md={6} className="mb-3 mb-md-0">
-              <div className=""> <strong>प्रेस काउन्सिल दर्ता नम्बर :</strong> ५८६-०७२-७३ </div>
-              <div className=""> <strong>सूचना विभाग दर्ता नम्बर : </strong> १३३-०७३-०७४ </div>
+              <div className=""> <strong>प्रेस काउन्सिल दर्ता नम्बर :</strong> ८६/२०८२-०८३ </div>
+              <div className=""> <strong>सूचना विभाग दर्ता नम्बर : </strong> ००७४/२०८२-०८३ </div>
               <div className=""> <strong>ठेगाना : </strong> जनकपुरधाम उपमहानगरपालिका - ४, धनुषा </div>
-              <div className="">  <strong>सञ्चालक : </strong> शुभम् मिडिया प्रालि </div>
-              <div className="">  <strong> सम्पादक :</strong> सुरज प्याकुरेल </div>
+              <div className="">  <strong>सञ्चालक : </strong> राहुल कुमार साह </div>
+              <div className="">  <strong> सम्पादक :</strong> सीमा कुमारी यादव </div>
               </Col>
               <Col xs={12} md={6}>
-                <div className=""> <strong> फोन नम्बर :</strong> ५८६-०७२-७३ </div>
+                <div className=""> <strong> फोन नम्बर :</strong> ९७४८३९०३७६ </div>
               {/* <div className=""> <strong> पोष्ट बक्स नम्बर :</strong> १३३-०७३-०७४ </div> */}
-              <div className=""> <strong>Email: </strong> 
+              <div className=""> <strong> इमेल: </strong> 
               <a href="mailto:nepalheadlinenews@gmail.com" className="text-light text-decoration-none">
                   nepalheadlinenews@gmail.com
                 </a>
