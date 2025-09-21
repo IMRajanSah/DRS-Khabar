@@ -1,4 +1,3 @@
-// import data from "../data/data.json";
 import { useNavigate } from 'react-router-dom';
 import '../App.css'
 import { useContext } from "react";

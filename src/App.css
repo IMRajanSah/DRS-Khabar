@@ -48,12 +48,12 @@ body{
   font-style: italic;
 }
 .not-found {
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  /* border: 1px solid #ccc; */
+  /* box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
   padding: 20px;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   text-align: center;
-  background-color: #fafafa;
+  /* background-color: #fafafa; */
 }
 .related-post{
   width: 25%;
@@ -102,8 +102,18 @@ body{
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   z-index: 9999;         /* above all content */
 }
-
-
+.myheader{
+  position: sticky;
+  top: 0;         /* sticks to top */
+}
+.navbar-nav .nav-item .dropdown-toggle {
+  font-size: 1.25rem;       /* same as your other nav links */
+  display: flex;
+  align-items: center;       /* vertical center */
+  height: 100%;              /* match navbar height */
+  padding: 0.5rem 1rem;      /* optional: adjust spacing */
+  color: white !important;   /* ensure same color */
+}
 @media (max-width: 768px) {
   .article-detail-container{
     flex-direction: column;
@@ -115,4 +125,9 @@ body{
   .cardItem{
     width: 100%;
   }
+  .navbar-collapse {
+  max-height: 70vh; 
+  overflow-y: auto;
+}
+
 }

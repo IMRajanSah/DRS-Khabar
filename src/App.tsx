@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
-import { Container, Navbar, Nav, Row, Col } from "react-bootstrap";
-import data from "./data/data.json";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
+import { Container, Navbar, Nav, Row, Col, NavDropdown } from "react-bootstrap";
 // Import your category components
 import Home from "./pages/Home";
 import Subcategory from "./pages/Subcategory";
@@ -14,6 +13,8 @@ import CreateArticle from './component/Admin/CreateArticle';
 import ArticleTable from './component/Admin/MyArticles';
 import EditArticle from './component/Admin/EditArticle';
 import { AppContext } from './context/AppContext';
+import { Category } from "./utils/auth";
+
 import {
   Spinner,
   
@@ -78,10 +79,10 @@ function Layout() {
   return (
     <>
       {!hideLayout && <Header />}
-      <Container style={{ marginTop: hideLayout ? "0" : "2rem", marginBottom: "8px" }}>
+      <Container style={{ marginTop: hideLayout ? "0" : "0.5rem", marginBottom: "8px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/news" element={<Home />} />
+          <Route path="/news" element={<Subcategory type="news" />} />
           <Route path="/politics" element={<Subcategory type="politics" />} />
           <Route path="/sports" element={<Subcategory type="sports" />} />
           <Route path="/agriculture" element={<Subcategory type="agriculture" />} />
@@ -118,7 +119,7 @@ function Layout() {
 //   );
 // }
 function Header() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
   const [dateTime, setDateTime] = useState("");
   // const [showBanner, setShowBanner] = useState(true);
@@ -178,7 +179,7 @@ function Header() {
   }, []);
   return (
     < div >
-    <div
+    <div onClick={()=>navigate('/')}
         // className={`top-banner ${showBanner ? "show" : "hide"}`} // CHANGED
         style={{
           width: "100%",
@@ -187,45 +188,30 @@ function Header() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           transition: "transform 0.3s ease-in-out", // CHANGED: smooth slide
-          zIndex: 800,
+          // zIndex: 800,
           padding: "5px",
+          cursor: "pointer"
         }}
         className='ps-md-5'
       >
         <img src='/thelogo.png' width="250px" height='100px'></img>
       </div>
+      <div style={{ position: "sticky", top: 0, zIndex: 2000 }}>
       <Navbar
         variant="dark"
         expand="lg"
         expanded={expanded}
         onToggle={() => setExpanded(!expanded)}
         style={{
-          // position: "fixed",
-          // top: "125px", 
-          // transform: showBanner ? "translateY(125px)" : "translateY(-100%)",
           width: "100%",
           backgroundColor: "#2d2767",
           color: "white",
           zIndex: 700,
-          // paddingLeft: '2rem'
         }}
-        // className={`custom-navbar ${showNavbar ? "show" : "hide"}`}
         className='ps-md-4'
       >
         <Container className="mx-5" style={{ color: "white" }}>
           <Navbar.Brand as={Link} to="/" >
-            {/* <img
-    src="/drs.png"
-    alt="Top Banner"
-    style={{
-      height: "2.5rem",
-      width: "2.5rem",
-      objectFit: "cover",
-      objectPosition: "center",
-      cursor: "pointer",
-      background:"white", borderRadius:"50%"
-    }}
-  /> */}
   <svg 
             xmlns="http://www.w3.org/2000/svg" 
             width="32" 
@@ -239,17 +225,37 @@ function Header() {
     
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto" style={{ gap: "1rem" }}>
-              {data.categories.map((cat) => (
-                <Nav.Link as={Link} to={`/${cat.id}`} key={cat.id} onClick={() => setExpanded(false)} style={{fontSize:'1.25rem'}}>
-                  {cat.name}
+            <Nav className="me-auto" >
+              <div className="d-none d-lg-flex" style={{ gap: "1rem" }}>
+              {Object.entries(Category).slice(0, 6).map(([key, cat]) => (
+                <Nav.Link as={Link} to={`/${key}`} key={key}>
+                  {cat}
                 </Nav.Link>
               ))}
+                {Object.entries(Category).length > 6 && (
+              <NavDropdown title="थप श्रेणीहरू" id="more-dropdown">
+                {Object.entries(Category).slice(6).map(([key, cat]) => (
+                  <NavDropdown.Item as={Link} to={`/${key}`} key={key}>
+                    {cat}
+                  </NavDropdown.Item>
+                ))}
+              </NavDropdown>
+              )}
+                </div>
+                <div className="d-lg-none">
+
+                {Object.entries(Category).slice(0, 6).map(([key, cat]) => (
+                <Nav.Link as={Link} to={`/${key}`} key={key} onClick={() => setExpanded(false)} style={{fontSize:'1.25rem'}}>
+                  {cat}
+                </Nav.Link>
+              ))}
+            </div>
             </Nav>
-          <div className="d-lg-block mt-3 mt-md-0" style={{ color: "white", fontWeight:'bold' }}> {toNepaliDigits(dateTime)} </div>
+          <div className="d-lg-block mt-3 mt-md-0" style={{ color: "white", fontWeight:'bold'}}> {toNepaliDigits(dateTime)} </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      </div>
     </div>
   );
 }
