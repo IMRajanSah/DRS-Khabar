@@ -38,7 +38,7 @@ const Details = () => {
   const handleFacebookShare = () => {
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const fbUrl = isMobile
-    ? `fb://facewebmodal/f?href=${encodedUrl}` // open app on mobile
+    ? `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` // open app on mobile
     : `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`; // fallback web
   window.open(fbUrl, "_blank");
 };
@@ -49,10 +49,7 @@ const handleMessengerShare = () => {
     : `https://www.facebook.com/dialog/send?link=${encodedUrl}&app_id=YOUR_APP_ID&redirect_uri=${encodedUrl}`; // web fallback
   window.open(messengerUrl, "_blank");
 };
-      // <a
-      //   href={`https://www.facebook.com/dialog/send?link=${encodedUrl}&app_id=YOUR_APP_ID&redirect_uri=${encodedUrl}`}
-      //   target="_blank"
-      //   rel="noreferrer"
+  
 
 
   useEffect(() => {
