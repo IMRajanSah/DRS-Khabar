@@ -114,6 +114,18 @@ body{
   padding: 0.5rem 1rem;      /* optional: adjust spacing */
   color: white !important;   /* ensure same color */
 }
+.share-buttons{
+  margin: 1.5rem 0;
+  display: flex;
+  gap: 10px;
+}
+
+.share-buttons>a{
+  width: 5rem;
+}
+.share-buttons>button{
+  width: 5rem;
+}
 @media (max-width: 768px) {
   .article-detail-container{
     flex-direction: column;
@@ -129,5 +141,13 @@ body{
   max-height: 70vh; 
   overflow-y: auto;
 }
-
+.share-buttons>a{
+  width: 3rem;
+}
+.share-buttons>button{
+  width: 3rem;
+}
+.share-buttons{
+  justify-content: center;
+}
 }
