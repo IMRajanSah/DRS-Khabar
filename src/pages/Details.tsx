@@ -35,6 +35,25 @@ const Details = () => {
       alert("Sharing not supported on this browser.");
     }
   };
+  const handleFacebookShare = () => {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const fbUrl = isMobile
+    ? `fb://facewebmodal/f?href=${encodedUrl}` // open app on mobile
+    : `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`; // fallback web
+  window.open(fbUrl, "_blank");
+};
+const handleMessengerShare = () => {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const messengerUrl = isMobile
+    ? `fb-messenger://share/?link=${encodedUrl}` // opens app
+    : `https://www.facebook.com/dialog/send?link=${encodedUrl}&app_id=YOUR_APP_ID&redirect_uri=${encodedUrl}`; // web fallback
+  window.open(messengerUrl, "_blank");
+};
+      // <a
+      //   href={`https://www.facebook.com/dialog/send?link=${encodedUrl}&app_id=YOUR_APP_ID&redirect_uri=${encodedUrl}`}
+      //   target="_blank"
+      //   rel="noreferrer"
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -115,10 +134,8 @@ const Details = () => {
             }
           </div> : undefined}
           <div className="share-buttons">
-      <a
-        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
-        target="_blank"
-        rel="noreferrer"
+      <button
+      onClick={handleFacebookShare}
         style={{
           background: "#1877f2",
           padding: "10px",
@@ -127,6 +144,7 @@ const Details = () => {
           alignItems: "center",
           justifyContent: "center",
           height: "36px",
+          border: "none",
         }}
       >
         {/* <button>Facebook</button> */}
@@ -139,7 +157,7 @@ const Details = () => {
         >
           <path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.988H7.898v-2.89h2.54V9.797c0-2.506 1.493-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.89h-2.33V21.88C18.343 21.128 22 16.991 22 12" />
         </svg>
-      </a>
+      </button>
 
       <a
         href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
@@ -187,10 +205,8 @@ const Details = () => {
   </svg>
       </a>
 
-      <a
-        href={`https://www.facebook.com/dialog/send?link=${encodedUrl}&app_id=YOUR_APP_ID&redirect_uri=${encodedUrl}`}
-        target="_blank"
-        rel="noreferrer"
+      <button
+      onClick={handleMessengerShare}
         style={{
           background: "#0084ff",
           padding: "10px",
@@ -199,6 +215,7 @@ const Details = () => {
           alignItems: "center",
           justifyContent: "center",
           height: "36px",
+          border: "none",
         }}
 
       >
@@ -211,7 +228,7 @@ const Details = () => {
         >
           <path d="M12 2C6.477 2 2 6.08 2 11.1c0 2.86 1.436 5.42 3.728 7.093V22l3.404-1.87c.9.25 1.857.383 2.868.383 5.523 0 10-4.08 10-9.1S17.523 2 12 2zm.27 12.82l-2.49-2.64-4.11 2.64 4.52-4.82 2.49 2.64 4.11-2.64-4.52 4.82z" />
         </svg>
-      </a>
+      </button>
 
       {/* Native share */}
       <button
