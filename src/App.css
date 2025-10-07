@@ -126,6 +126,26 @@ body{
 .share-buttons>button{
   width: 5rem;
 }
+.my-tabs{
+  padding: 1rem 0 0.5rem 0;
+  border: none !important;
+}
+.my-tabs .nav-link {
+  color: black !important;
+  border-bottom: none !important;
+  background-color: transparent !important;
+  font-weight: normal;
+  box-shadow: none !important; /* remove shadow */
+  border: none !important;
+}
+
+.my-tabs .nav-link.active {
+  border-bottom: 2px solid red !important;
+  background-color: transparent !important;
+  font-weight: normal;
+
+}
+
 @media (max-width: 768px) {
   .article-detail-container{
     flex-direction: column;
