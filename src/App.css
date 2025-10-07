@@ -150,4 +150,10 @@ body{
 .share-buttons{
   justify-content: center;
 }
+.header-logo-center-mobile{
+  text-align: center;
+}
+.header-mobile{
+  padding:'0 2rem'
+}
 }
