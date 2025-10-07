@@ -7,7 +7,7 @@ import Subcategory from "./pages/Subcategory";
 import './App.css'
 import Details from './pages/Details';
 import { useContext, useEffect, useState } from 'react';
-import NepaliDate  from "nepali-datetime";
+import NepaliDate from "nepali-datetime";
 import Login from './component/Admin/Login';
 import CreateArticle from './component/Admin/CreateArticle';
 import ArticleTable from './component/Admin/MyArticles';
@@ -17,31 +17,33 @@ import { Category } from "./utils/auth";
 
 import {
   Spinner,
-  
+
 } from "react-bootstrap";
 export default function App() {
   const context = useContext(AppContext);
-  const {loading, error} = context!;
-  if(loading){
-    return(
-    <Container
-                className="d-flex justify-content-center align-items-center"
-                style={{ height: "80vh" }}
-            >
-                <Spinner animation="border" role="status" variant="primary">
-                    <span className="visually-hidden">Checking authentication...</span>
-                </Spinner>
-            </Container>
-  )}
-  if(error){
-    return(
-    <Container
-                className="d-flex justify-content-center align-items-center"
-                style={{ height: "80vh", color:'red' }}
-            >
+  const { loading, error } = context!;
+  if (loading) {
+    return (
+      <Container
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "80vh" }}
+      >
+        <Spinner animation="border" role="status" variant="primary">
+          <span className="visually-hidden">Checking authentication...</span>
+        </Spinner>
+      </Container>
+    )
+  }
+  if (error) {
+    return (
+      <Container
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "80vh", color: 'red' }}
+      >
         <h4 className="not-found">API Failure!</h4>
-            </Container>
-  )}
+      </Container>
+    )
+  }
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -51,23 +53,23 @@ export default function App() {
 
   return (
     <>
-    <Router>
-      <Layout />
-    </Router>
-    <div
-      className="scroll-to-top-btn"
-      onClick={scrollToTop}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="white"
+      <Router>
+        <Layout />
+      </Router>
+      <div
+        className="scroll-to-top-btn"
+        onClick={scrollToTop}
       >
-        <path d="M12 4l-8 8h5v8h6v-8h5z" />
-      </svg>
-    </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="white"
+        >
+          <path d="M12 4l-8 8h5v8h6v-8h5z" />
+        </svg>
+      </div>
     </>
   );
 }
@@ -123,8 +125,8 @@ function Header() {
   const [expanded, setExpanded] = useState(false);
   const [dateTime, setDateTime] = useState("");
   // const [showBanner, setShowBanner] = useState(true);
-   const toNepaliDigits = (input: string) => {
-    const nepaliDigits = ["०","१","२","३","४","५","६","७","८","९"];
+  const toNepaliDigits = (input: string) => {
+    const nepaliDigits = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९"];
     return input.replace(/\d/g, (d) => nepaliDigits[parseInt(d)]);
   };
   const formatBsDateTime = () => {
@@ -140,7 +142,7 @@ function Header() {
     hours = hours % 12 || 12; // convert 24h -> 12h
 
     // Format Nepali digits
-    const formatted = `${toNepaliDigits(bsDate.replace(/-/g, "/"))} ${toNepaliDigits(hours.toString().padStart(2,"0"))}:${toNepaliDigits(minutes.toString().padStart(2,"0"))}:${toNepaliDigits(seconds.toString().padStart(2,"0"))} ${ampm}`;
+    const formatted = `${toNepaliDigits(bsDate.replace(/-/g, "/"))} ${toNepaliDigits(hours.toString().padStart(2, "0"))}:${toNepaliDigits(minutes.toString().padStart(2, "0"))}:${toNepaliDigits(seconds.toString().padStart(2, "0"))} ${ampm}`;
     return formatted;
   };
   // const [showNavbar, setShowNavbar] = useState(true);
@@ -148,28 +150,28 @@ function Header() {
   // NEW: track last scroll position
   // const [lastScrollY, setLastScrollY] = useState(0);
 
-//   useEffect(() => {
-//   const handleScroll = () => {
-//     const currentScrollY = window.scrollY;
+  //   useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScrollY = window.scrollY;
 
-//     // Banner: show only at top
-//     setShowBanner(currentScrollY === 0);
+  //     // Banner: show only at top
+  //     setShowBanner(currentScrollY === 0);
 
-//     // Navbar: hide on scroll down, show on scroll up
-//     if (currentScrollY > lastScrollY) {
-//       // scrolling down
-//       setShowNavbar(false);
-//     } else if (currentScrollY < lastScrollY) {
-//       // scrolling up
-//       setShowNavbar(true);
-//     }
+  //     // Navbar: hide on scroll down, show on scroll up
+  //     if (currentScrollY > lastScrollY) {
+  //       // scrolling down
+  //       setShowNavbar(false);
+  //     } else if (currentScrollY < lastScrollY) {
+  //       // scrolling up
+  //       setShowNavbar(true);
+  //     }
 
-//     setLastScrollY(currentScrollY);
-//   };
+  //     setLastScrollY(currentScrollY);
+  //   };
 
-//   window.addEventListener("scroll", handleScroll);
-//   return () => window.removeEventListener("scroll", handleScroll);
-// }, [lastScrollY]);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, [lastScrollY]);
   useEffect(() => {
     const interval = setInterval(() => {
       setDateTime(formatBsDateTime());
@@ -179,7 +181,7 @@ function Header() {
   }, []);
   return (
     < div >
-    <div onClick={()=>navigate('/')}
+      <div onClick={() => navigate('/')}
         // className={`top-banner ${showBanner ? "show" : "hide"}`} // CHANGED
         style={{
           width: "100%",
@@ -189,72 +191,72 @@ function Header() {
           backgroundPosition: "center",
           transition: "transform 0.3s ease-in-out", // CHANGED: smooth slide
           // zIndex: 800,
-          padding: "5px",
+          // padding: "5px",
           cursor: "pointer"
         }}
-        className='ps-md-5'
+        className='header-logo-center-mobile'
       >
-        <img src='/thelogo.png' width="250px" height='100px'></img>
+        <Container>
+        <img src='/thelogo.png' width="250px" height='100px'></img></Container>
       </div>
-      <div style={{ position: "sticky", top: 0, zIndex: 2000 }}>
-      <Navbar
-        variant="dark"
-        expand="lg"
-        expanded={expanded}
-        onToggle={() => setExpanded(!expanded)}
-        style={{
-          width: "100%",
-          backgroundColor: "#2d2767",
-          color: "white",
-          zIndex: 700,
-        }}
-        className='ps-md-4'
-      >
-        <Container className="mx-5" style={{ color: "white" }}>
-          <Navbar.Brand as={Link} to="/" >
-  <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="32" 
-            height="32" 
-            viewBox="0 0 24 24" 
-            fill="white"
-          >
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-          </svg>
-          </Navbar.Brand>
-    
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto" >
-              <div className="d-none d-lg-flex" style={{ gap: "1rem" }}>
-              {Object.entries(Category).slice(0, 6).map(([key, cat]) => (
-                <Nav.Link as={Link} to={`/${key}`} key={key}>
-                  {cat}
-                </Nav.Link>
-              ))}
-                {Object.entries(Category).length > 6 && (
-              <NavDropdown title="थप श्रेणीहरू" id="more-dropdown">
-                {Object.entries(Category).slice(6).map(([key, cat]) => (
-                  <NavDropdown.Item as={Link} to={`/${key}`} key={key}>
-                    {cat}
-                  </NavDropdown.Item>
-                ))}
-              </NavDropdown>
-              )}
+      <div style={{ position: "sticky", top: 0, zIndex: 2000 }} >
+        <Navbar
+          variant="dark"
+          expand="lg"
+          expanded={expanded}
+          onToggle={() => setExpanded(!expanded)}
+          style={{
+            width: "100%",
+            backgroundColor: "#2d2767",
+            color: "white",
+            zIndex: 700
+          }}
+        >
+          <Container  style={{ color: "white" }}>
+            <Navbar.Brand as={Link} to="/" >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="white"
+              >
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+              </svg>
+            </Navbar.Brand>
+
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto" >
+                <div className="d-none d-lg-flex" style={{ gap: "1rem" }}>
+                  {Object.entries(Category).slice(0, 6).map(([key, cat]) => (
+                    <Nav.Link as={Link} to={`/${key}`} key={key}>
+                      {cat}
+                    </Nav.Link>
+                  ))}
+                  {Object.entries(Category).length > 6 && (
+                    <NavDropdown title="थप श्रेणीहरू" id="more-dropdown">
+                      {Object.entries(Category).slice(6).map(([key, cat]) => (
+                        <NavDropdown.Item as={Link} to={`/${key}`} key={key}>
+                          {cat}
+                        </NavDropdown.Item>
+                      ))}
+                    </NavDropdown>
+                  )}
                 </div>
                 <div className="d-lg-none">
 
-                {Object.entries(Category).slice(0, 6).map(([key, cat]) => (
-                <Nav.Link as={Link} to={`/${key}`} key={key} onClick={() => setExpanded(false)} style={{fontSize:'1.25rem'}}>
-                  {cat}
-                </Nav.Link>
-              ))}
-            </div>
-            </Nav>
-          <div className="d-lg-block mt-3 mt-md-0" style={{ color: "white", fontWeight:'bold'}}> {toNepaliDigits(dateTime)} </div>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+                  {Object.entries(Category).slice(0, 6).map(([key, cat]) => (
+                    <Nav.Link as={Link} to={`/${key}`} key={key} onClick={() => setExpanded(false)} style={{ fontSize: '1.25rem' }}>
+                      {cat}
+                    </Nav.Link>
+                  ))}
+                </div>
+              </Nav>
+              <div className="d-lg-block mt-3 mt-md-0" style={{ color: "white", fontWeight: 'bold' }}> {toNepaliDigits(dateTime)} </div>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
       </div>
     </div>
   );
@@ -270,7 +272,7 @@ function Footer() {
           <Row className="text-center text-md-start">
             {/* Logo Section */}
             <Col xs={12} md={4} className="text-center mb-4 mb-md-0  mt-lg-4">
-              <img src="/colored-logo.png" alt="Logo" style={{ width: "250px", height: "100px",background:"transparent", marginBottom:"0.5rem", borderRadius:'2%'}} />
+              <img src="/colored-logo.png" alt="Logo" style={{ width: "250px", height: "100px", background: "transparent", marginBottom: "0.5rem", borderRadius: '2%' }} />
               <div className="d-flex justify-content-center justify-content-md-center align-items-center gap-3">
                 {/* Facebook Icon */}
                 <a href="https://www.facebook.com/profile.php?id=61574987473882" target="_blank" rel="noreferrer">
@@ -290,26 +292,26 @@ function Footer() {
 
             {/* About Section */}
             <Col xs={12} md={8} className="mb-4 mb-md-0">
-              <h5 style={{ borderBottom: "2px solid red", display: "inline-block", paddingBottom: "5px", width:"100%", textAlign:"center" }}>
+              <h5 style={{ borderBottom: "2px solid red", display: "inline-block", paddingBottom: "5px", width: "100%", textAlign: "center" }}>
                 डी.आर.एस खबर डटकम
               </h5>
               <Row className="text-center text-md-start">
-              <Col xs={12} md={6} className="mb-3 mb-md-0">
-              <div className=""> <strong>प्रेस काउन्सिल दर्ता नम्बर :</strong> ८६/२०८२-०८३ </div>
-              <div className=""> <strong>सूचना विभाग दर्ता नम्बर : </strong> ००७४/२०८२-०८३ </div>
-              <div className=""> <strong>ठेगाना : </strong> जनकपुरधाम उपमहानगरपालिका - ४, धनुषा </div>
-              <div className="">  <strong>सञ्चालक : </strong> राहुल कुमार साह </div>
-              <div className="">  <strong> सम्पादक :</strong> सीमा कुमारी यादव </div>
-              </Col>
-              <Col xs={12} md={6}>
-                <div className=""> <strong> फोन नम्बर :</strong> ९७४८३९०३७६ </div>
-              {/* <div className=""> <strong> पोष्ट बक्स नम्बर :</strong> १३३-०७३-०७४ </div> */}
-              <div className=""> <strong> इमेल: </strong> 
-              <a href="mailto:nepalheadlinenews@gmail.com" className="text-light text-decoration-none">
-                  nepalheadlinenews@gmail.com
-                </a>
-              </div>
-              </Col>
+                <Col xs={12} md={6} className="mb-3 mb-md-0">
+                  <div className=""> <strong>प्रेस काउन्सिल दर्ता नम्बर :</strong> ८६/२०८२-०८३ </div>
+                  <div className=""> <strong>सूचना विभाग दर्ता नम्बर : </strong> ००७४/२०८२-०८३ </div>
+                  <div className=""> <strong>ठेगाना : </strong> जनकपुरधाम उपमहानगरपालिका - ४, धनुषा </div>
+                  <div className="">  <strong>सञ्चालक : </strong> राहुल कुमार साह </div>
+                  <div className="">  <strong> सम्पादक :</strong> सीमा कुमारी यादव </div>
+                </Col>
+                <Col xs={12} md={6}>
+                  <div className=""> <strong> फोन नम्बर :</strong> ९७४८३९०३७६ </div>
+                  {/* <div className=""> <strong> पोष्ट बक्स नम्बर :</strong> १३३-०७३-०७४ </div> */}
+                  <div className=""> <strong> इमेल: </strong>
+                    <a href="mailto:nepalheadlinenews@gmail.com" className="text-light text-decoration-none">
+                      nepalheadlinenews@gmail.com
+                    </a>
+                  </div>
+                </Col>
               </Row>
             </Col>
 
@@ -318,7 +320,7 @@ function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div style={{ backgroundColor: "#cd060d", color: "white", padding: "2px 0", fontSize: "0.85rem", height:"2rem", alignItems:"center", display:"flex" }}>
+      <div style={{ backgroundColor: "#cd060d", color: "white", padding: "2px 0", fontSize: "0.85rem", height: "2rem", alignItems: "center", display: "flex" }}>
         <Container>
           <Row>
             <Col className="d-flex justify-content-end gap-4" style={{ whiteSpace: "nowrap" }}>
