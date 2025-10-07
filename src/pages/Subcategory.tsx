@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CardWithPagination from "../component/CardWithPagination";
 import { AppContext } from "../context/AppContext";
 import { Category } from "../utils/auth";
@@ -37,6 +37,9 @@ const Subcategory = ({ type }: { type: string }) => {
       color: "#333",
     },
   };
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [type]);
   return (
     <Row className="align-items-stretch">
       <Col xs={12} md={9} className="mb-3 mydiv" style={{ border: 'none', boxShadow: '0 0 10px rgba(0,0,0,0.1)', backgroundColor: 'white' }}>
