@@ -1,93 +1,96 @@
 import { Carousel } from 'react-bootstrap';
 import { AppContext } from "../context/AppContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import MyTabs from '../component/MyTabs';
+import { useNavigate } from 'react-router-dom';
+import SubCategoryOnHomePage from '../component/SubCategoryOnHomePage';
 
 const Home = () => {
   const context = useContext(AppContext);
+  const navigate = useNavigate();
   const { posts } = context!;
-  const [showAd, setShowAd] = useState(true);
+  // const [showAd, setShowAd] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowAd(false);
+      context?.setShowAd(false);
     }, 15000);
     return () => clearTimeout(timer);
   }, []);
 
   const adImageUrl = "https://content.drskhabar.com/wp-content/uploads/2025/10/Dami-Arts-Ad.jpeg";
-  
+
   return (
     <div>
       {/* Top 5 news */}
-      <Carousel controls={false}>
-  <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src={posts[0]?.image_urls[0]}
-      alt="First slide"
-      style={{ height: "60vh", objectFit: "cover" }}
-    />
-    <Carousel.Caption>
-      <h3 style={{backgroundColor: "rgba(0, 0, 0, 0.5)", textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)"}}>{posts[0]?.title}</h3>
-      {/* <p>Description for first slide.</p> */}
-    </Carousel.Caption>
-  </Carousel.Item>
+      <Carousel controls={false} style={{ cursor: 'pointer' }}>
+        <Carousel.Item onClick={() => navigate(`/news/${posts[0]?.id}`)}>
+          <img
+            className="d-block w-100"
+            src={posts[0]?.image_urls[0]}
+            alt="First slide"
+            style={{ height: "60vh", objectFit: "cover" }}
+          />
+          <Carousel.Caption>
+            <h3 style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)" }}>{posts[0]?.title}</h3>
+            {/* <p>Description for first slide.</p> */}
+          </Carousel.Caption>
+        </Carousel.Item>
 
-  <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src={posts[1]?.image_urls[0]}
-      alt="Second slide"
-      style={{ height: "60vh", objectFit: "cover" }}
-    />
-    <Carousel.Caption>
-      <h3 style={{backgroundColor: "rgba(0, 0, 0, 0.5)", textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)"}}>{posts[1]?.title}</h3>
-      {/* <p>Description for second slide.</p> */}
-    </Carousel.Caption>
-  </Carousel.Item>
+        <Carousel.Item onClick={() => navigate(`/news/${posts[1]?.id}`)}>
+          <img
+            className="d-block w-100"
+            src={posts[1]?.image_urls[0]}
+            alt="Second slide"
+            style={{ height: "60vh", objectFit: "cover" }}
+          />
+          <Carousel.Caption>
+            <h3 style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)" }}>{posts[1]?.title}</h3>
+            {/* <p>Description for second slide.</p> */}
+          </Carousel.Caption>
+        </Carousel.Item>
 
-  <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src={posts[2]?.image_urls[0]}
-      alt="Third slide"
-      style={{ height: "60vh", objectFit: "cover" }}
-    />
-    <Carousel.Caption>
-      <h3 style={{backgroundColor: "rgba(0, 0, 0, 0.5)", textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)"}}>{posts[2]?.title}</h3>
-      {/* <p>Description for third slide.</p> */}
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src={posts[3]?.image_urls[0]}
-      alt="Fourth slide"
-      style={{ height: "60vh", objectFit: "cover" }}
-    />
-    <Carousel.Caption>
-      <h3 style={{backgroundColor: "rgba(0, 0, 0, 0.5)", textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)"}}>{posts[3]?.title}</h3>
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src={posts[4]?.image_urls[0]}
-      alt="Fifth slide"
-      style={{ height: "60vh", objectFit: "cover" }}
-    />
-    <Carousel.Caption>
-      <h3 style={{backgroundColor: "rgba(0, 0, 0, 0.5)", textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)"}}>{posts[4]?.title}</h3>
-      {/* <p>Description for third slide.</p> */}
-    </Carousel.Caption>
-  </Carousel.Item>
-</Carousel>
-        {/* {posts.slice(5,16).map((item) => (
+        <Carousel.Item onClick={() => navigate(`/news/${posts[2]?.id}`)}>
+          <img
+            className="d-block w-100"
+            src={posts[2]?.image_urls[0]}
+            alt="Third slide"
+            style={{ height: "60vh", objectFit: "cover" }}
+          />
+          <Carousel.Caption>
+            <h3 style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)" }}>{posts[2]?.title}</h3>
+            {/* <p>Description for third slide.</p> */}
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item onClick={() => navigate(`/news/${posts[3]?.id}`)}>
+          <img
+            className="d-block w-100"
+            src={posts[3]?.image_urls[0]}
+            alt="Fourth slide"
+            style={{ height: "60vh", objectFit: "cover" }}
+          />
+          <Carousel.Caption>
+            <h3 style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)" }}>{posts[3]?.title}</h3>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item onClick={() => navigate(`/news/${posts[4]?.id}`)}>
+          <img
+            className="d-block w-100"
+            src={posts[4]?.image_urls[0]}
+            alt="Fifth slide"
+            style={{ height: "60vh", objectFit: "cover" }}
+          />
+          <Carousel.Caption>
+            <h3 style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)" }}>{posts[4]?.title}</h3>
+            {/* <p>Description for third slide.</p> */}
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+      {/* {posts.slice(5,16).map((item) => (
   <CustomCard key={item.id} item={item} />
 ))} */}
-    <MyTabs/>
-      {showAd && (
+      <MyTabs />
+      {context?.showAd && (
         <div
           style={{
             position: "fixed",
@@ -139,7 +142,7 @@ const Home = () => {
 
               {/* Close Button */}
               <button
-                onClick={() => setShowAd(false)}
+                onClick={() => context?.setShowAd(false)}
                 style={{
                   padding: "4px 8px",
                   fontSize: "0.9rem",
@@ -171,6 +174,7 @@ const Home = () => {
           </div>
         </div>
       )}
+      <SubCategoryOnHomePage/>
     </div>
   );
 };
