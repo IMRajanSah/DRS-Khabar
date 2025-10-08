@@ -212,7 +212,7 @@ function Header() {
             zIndex: 700
           }}
         >
-          <Container  style={{ color: "white" }}>
+          <Container  style={{ color: "white",padding: window.innerWidth <= 768 ? "0 1rem" : "0 0.5rem"}}>
             <Navbar.Brand as={Link} to="/" >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
