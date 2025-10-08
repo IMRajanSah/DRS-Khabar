@@ -1,10 +1,14 @@
+import { useNavigate } from "react-router-dom";
+
 const SmallCard = ({data}:any) => {
+    const navigate = useNavigate();
     const styles = {
     card: {
       display: 'flex',
       overflow: 'hidden',
       maxWidth: '100%',
-      marginBottom: '0.75rem'
+      marginBottom: '0.75rem',
+      cursor:'pointer'
     },
     imageContainer: {
       flex: '0 0 150px',
@@ -48,7 +52,7 @@ const SmallCard = ({data}:any) => {
   return (
     <>
     {data.map((item:any)=>(
-        <div style={styles.card} key={item.id}>
+        <div style={styles.card} key={item.id} onClick={() => navigate(`/news/${item?.id}`)}>
       <div style={styles.imageContainer}>
         <img src={item.image_urls[0]} alt={item.id} style={styles.image} />
       </div>
