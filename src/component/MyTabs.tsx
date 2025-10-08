@@ -11,12 +11,12 @@ const MyTabs = () => {
     const latestNewsPosts = posts.slice(5, 12);  
   return (
     <Tabs className="my-tabs" defaultActiveKey="latest" id="uncontrolled-tab-example" >
-        <Tab eventKey="latest" title="Latest News">
+        <Tab eventKey="latest" title="Latest">
         {latestNewsPosts.length>0?<SmallCard data={latestNewsPosts}/>:
         <div style={{color:'#999', paddingLeft:'1rem', fontSize:'0.85rem'}}>No Latest News!</div>
         }
       </Tab>
-      <Tab eventKey="breaking" title="Breaking News">
+      <Tab eventKey="breaking" title="Breaking">
         {breakingNewsPosts.length>0?<SmallCard data={breakingNewsPosts}/>:
         <div style={{color:'#999', paddingLeft:'1rem', fontSize:'0.85rem'}}>No Breaking News!</div>
         }
