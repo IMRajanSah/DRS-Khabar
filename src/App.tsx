@@ -297,7 +297,7 @@ function Footer() {
               </h5>
               <Row className="text-center text-md-start">
                 <Col xs={12} md={6} className="mb-3 mb-md-0">
-                  <div className=""> <strong>प्रेस काउन्सिल दर्ता नम्बर :</strong> ८६/२०८२-०८३ </div>
+                  <div className=""> <strong>मिडिया काउन्सिल दर्ता नम्बर :</strong> ८६/२०८२-०८३ </div>
                   <div className=""> <strong>सूचना विभाग दर्ता नम्बर : </strong> ००७४/२०८२-०८३ </div>
                   <div className=""> <strong>ठेगाना : </strong> जनकपुरधाम उपमहानगरपालिका - ४, धनुषा </div>
                   <div className="">  <strong>सञ्चालक : </strong> राहुल कुमार साह </div>
