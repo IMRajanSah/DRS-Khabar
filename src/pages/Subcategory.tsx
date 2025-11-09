@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CardWithPagination from "../component/CardWithPagination";
 import { AppContext } from "../context/AppContext";
 import { Category } from "../utils/auth";
@@ -37,6 +37,9 @@ const Subcategory = ({ type }: { type: string }) => {
       color: "#333",
     },
   };
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [type]);
   return (
     <Row className="align-items-stretch">
       <Col xs={12} md={9} className="mb-3 mydiv" style={{ border: 'none', boxShadow: '0 0 10px rgba(0,0,0,0.1)', backgroundColor: 'white' }}>
@@ -53,25 +56,92 @@ const Subcategory = ({ type }: { type: string }) => {
                 <CardWithPagination item={item} />
               </Col>
             ))}
-            {totalPages > 1 &&(
-            <Pagination className="justify-content-center mt-3">
-              <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
-              <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+            {totalPages > 1 && (
+              <Pagination className="justify-content-center mt-3">
+                <Pagination.First
+                  onClick={() => handlePageChange(1)}
+                  disabled={currentPage === 1}
+                />
+                <Pagination.Prev
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                />
 
-              {Array.from({ length: totalPages }, (_, i) => (
-                <Pagination.Item
-                  key={i + 1}
-                  active={currentPage === i + 1}
-                  onClick={() => handlePageChange(i + 1)}
-                >
-                  {i + 1}
-                </Pagination.Item>
-              ))}
+                {/* ✅ UPDATED: Custom pagination with ellipsis */}
+                {(() => {
+                  const pages = [];
+                  if (totalPages <= 4) {
+                    for (let i = 1; i <= totalPages; i++) {
+                      pages.push(
+                        <Pagination.Item
+                          key={i}
+                          active={currentPage === i}
+                          onClick={() => handlePageChange(i)}
+                        >
+                          {i}
+                        </Pagination.Item>
+                      );
+                    }
+                  } else {
+                    pages.push(
+                      <Pagination.Item
+                        key={1}
+                        active={currentPage === 1}
+                        onClick={() => handlePageChange(1)}
+                      >
+                        1
+                      </Pagination.Item>
+                    );
 
-              <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
-              <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
-            </Pagination>
+                    if (currentPage > 3) {
+                      pages.push(<Pagination.Ellipsis key="start-ellipsis" disabled />);
+                    }
+
+                    const startPage = Math.max(2, currentPage - 1);
+                    const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+                    for (let i = startPage; i <= endPage; i++) {
+                      pages.push(
+                        <Pagination.Item
+                          key={i}
+                          active={currentPage === i}
+                          onClick={() => handlePageChange(i)}
+                        >
+                          {i}
+                        </Pagination.Item>
+                      );
+                    }
+
+                    if (currentPage < totalPages - 2) {
+                      pages.push(<Pagination.Ellipsis key="end-ellipsis" disabled />);
+                    }
+
+                    pages.push(
+                      <Pagination.Item
+                        key={totalPages}
+                        active={currentPage === totalPages}
+                        onClick={() => handlePageChange(totalPages)}
+                      >
+                        {totalPages}
+                      </Pagination.Item>
+                    );
+                  }
+
+                  return pages;
+                })()}
+                {/* ✅ END of updated pagination */}
+
+                <Pagination.Next
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                />
+                <Pagination.Last
+                  onClick={() => handlePageChange(totalPages)}
+                  disabled={currentPage === totalPages}
+                />
+              </Pagination>
             )}
+            
           </Row>
         }
       </Col>

@@ -1,0 +1,140 @@
+.category-news:not(:first-child) {
+  margin-top: 2rem;
+}
+
+.category-title {
+  font-size: 1.5rem;
+  border-bottom: 2px solid red;
+  margin-bottom: 15px;
+}
+
+/* Wrapper grid for left/right columns */
+.news-grid {
+  display: flex;
+  gap: 20px;
+  height: 600px; /* Set fixed height for matching columns */
+}
+
+/* LEFT COLUMN */
+.left-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Top half - big image post */
+.left-top {
+  flex: 1;
+  position: relative;
+    height: 300px; 
+    aspect-ratio: 16 / 9;
+    cursor: pointer;
+
+}
+
+.main-image {
+  width: 100%;
+  height: 300px;
+  display: block;
+  object-fit: contain; 
+}
+.main-image,
+.bottom-img,
+.right-thumb {
+  width: 100%;
+  height: 100%;             /* Fill the parent height */
+  object-fit: cover;        /* ✨ Prevent stretching */
+  display: block;
+}
+
+.main-title {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+/* Bottom half - two posts side by side */
+.left-bottom {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.bottom-post {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;        
+}
+
+.bottom-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.bottom-title {
+  font-size: 0.9rem;
+  padding-top: 5px;
+  flex: 1;
+}
+
+/* RIGHT COLUMN */
+.right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.right-item {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.right-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+.right-title {
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.date{
+    font-size: 0.85rem;
+    color:#999
+}
+/* 🔁 Responsive: Mobile View */
+@media (max-width: 768px) {
+  .news-grid {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-column, .right-column {
+    flex: unset;
+    height: auto;
+  }
+
+  .left-top, .left-bottom {
+    height: auto;
+  }
+
+  .left-bottom {
+    flex-direction: column;
+  }
+
+  
+}

@@ -15,6 +15,8 @@ interface AppContextType {
   loading: boolean;
   error: string | null;
   categoryFilter: string;
+  showAd: boolean;
+  setShowAd: Function;
   setCategoryFilter: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -30,6 +32,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [showAd, setShowAd] = useState(true);
 
   const [categoryFilter, setCategoryFilter] = useState<string>("politics");
 
@@ -63,6 +66,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         error,
         categoryFilter,
         setCategoryFilter,
+        showAd,
+        setShowAd
       }}
     >
       {children}
